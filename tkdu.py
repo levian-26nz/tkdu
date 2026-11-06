@@ -46,13 +46,13 @@ MIN_H = 15
 VERTICAL = "vertical"
 HORIZONTAL = "horizontal"
 NUM_QUEUE = 25
-FONT_FACE = ("helvetica", 12)
+FONT_FACE = ("helvetica", 10)
 BORDER = 2
-FONT_HEIGHT = 12
-FONT_HEIGHT2 = 20
+FONT_HEIGHT = 10
+FONT_HEIGHT2 = 16
 
-dircolors = ['#ff7070', '#70ff70', '#7070ff']
-leafcolors = ['#bf5454', '#54bf54', '#5454bf']
+leafcolors = ['#737373', '#F15A60', '#7AC36A', '#5A9BD4', '#FAA75B', '#9E67AB', '#CE7058', '#D77FB4']
+dircolors  = ['#010202', '#EE2E2F', '#008C48', '#185AA9', '#F47D23', '#662C91', '#A21D21', '#B43894']
 
 
 def _coerce_text(value):
@@ -74,7 +74,7 @@ def allocate(path, files, canvas, x, y, w, h, first, depth):
     else:
         basename_idx = len(path) + 1
         nslashes = path.count(os.sep)
-    dircolor = dircolors[nslashes % len(dircolors)]
+    dircolor  = dircolors [nslashes % len(dircolors)]
     leafcolor = leafcolors[nslashes % len(dircolors)]
     colors = (leafcolor, dircolor)
     totsz = 0
@@ -407,10 +407,7 @@ def doit(dir, files):
         t.bind("<Key-%d>" % i, lambda e, c=c, i=i: setdepth(e, c, i))
     c.bind("<Button-4>", lambda e: scroll(e, -1))
     c.bind("<Button-5>", lambda e: scroll(e, 1))
-    if os.name == 'nt':
-        c.bind("<Button-3>", ascend)
-    else:
-        c.bind("<Button-2>", ascend)
+    c.bind("<Button-3>", ascend)
     c.tag_bind("all", "<Button-1>", descend)
     c.tag_bind("all", "<Enter>", schedule_tip)
     c.tag_bind("all", "<Leave>", cancel_tip)
@@ -477,8 +474,6 @@ def du(dir, files, fs=0, ST_MODE=stat.ST_MODE, ST_SIZE=stat.ST_SIZE,
 
 
 def abspath(p):
-    print('cwd:' + os.getcwd())
-    print('p:', p)
     return os.path.normpath(os.path.join(os.getcwd(), p))
 
 
